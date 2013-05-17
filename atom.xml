@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[てきとうぶろぐ]]></title>
+  <title><![CDATA[Auto-Saving Done]]></title>
   <link href="http://satoshi-m8a.github.io/atom.xml" rel="self"/>
   <link href="http://satoshi-m8a.github.io/"/>
-  <updated>2013-05-17T21:07:57+09:00</updated>
+  <updated>2013-05-17T21:35:58+09:00</updated>
   <id>http://satoshi-m8a.github.io/</id>
   <author>
     <name><![CDATA[Satoshi Matsushita]]></name>
@@ -12,5 +12,14 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Test]]></title>
+    <link href="http://satoshi-m8a.github.io/blog/2013/05/17/test/"/>
+    <updated>2013-05-17T21:09:00+09:00</updated>
+    <id>http://satoshi-m8a.github.io/blog/2013/05/17/test</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
 </feed>
