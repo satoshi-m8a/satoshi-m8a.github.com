@@ -4,7 +4,7 @@
   <title><![CDATA[Auto-Saving Done]]></title>
   <link href="http://satoshi-m8a.github.io/atom.xml" rel="self"/>
   <link href="http://satoshi-m8a.github.io/"/>
-  <updated>2013-05-18T00:52:22+09:00</updated>
+  <updated>2013-05-18T00:57:19+09:00</updated>
   <id>http://satoshi-m8a.github.io/</id>
   <author>
     <name><![CDATA[Satoshi Matsushita]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Scalaで無名関数を定義して即実行]]></title>
+    <title type="html"><![CDATA[Scalaで無名関数を生成して即実行]]></title>
     <link href="http://satoshi-m8a.github.io/blog/2013/05/17/scala-anonymous-func/"/>
     <updated>2013-05-17T22:37:00+09:00</updated>
     <id>http://satoshi-m8a.github.io/blog/2013/05/17/scala-anonymous-func</id>
@@ -48,6 +48,8 @@
 </span><span class='line'><span class="o">})(</span><span class="mi">10</span><span class="o">)</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p>いつ使うのか。</p>
 ]]></content>
   </entry>
   
