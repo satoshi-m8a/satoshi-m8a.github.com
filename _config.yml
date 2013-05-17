@@ -3,7 +3,7 @@
 # ----------------------- #
 
 url: http://satoshi-m8a.github.io
-title: てきとうぶろぐ
+title: Auto-Saving Done
 subtitle: ScalaとかJavaScriptとか、たまにActionScript
 author: Satoshi Matsushita
 simple_search: http://google.com/search
@@ -69,7 +69,7 @@ github_show_profile_link: true
 github_skip_forks: true
 
 # Twitter
-twitter_user:
+twitter_user:satoshi_m8a
 twitter_tweet_button: true
 
 # Google +1
