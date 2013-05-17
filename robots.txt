@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://satoshi-m8a.github.io/sitemap.xml 
