@@ -156,7 +156,7 @@ Concurrent.unicastメソッドに対して、接続開始、完了、エラー�
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>このとき、接続開始時に実行される関数（上の例ではonStart関数）の中で、channelを保持することで、以降はそのchannelに対して<code>channel.push(msg)</code>とすることで特定のクライアントに対してだけメッセージを送ることができます。</p>
+<p>このとき、接続開始時に実行される関数（上の例ではonStart関数）の中で、channelを保持することで、以降はそのchannelに対して<code>channel.push(msg)</code>とするだけで特定のクライアントに対してメッセージを送ることができます。</p>
 
 <p>以下、websocket-chatをベースにしたサンプルコード</p>
 

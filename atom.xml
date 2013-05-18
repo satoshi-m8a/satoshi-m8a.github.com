@@ -4,7 +4,7 @@
   <title><![CDATA[Auto-Saving ... Done]]></title>
   <link href="http://satoshi-m8a.github.io/atom.xml" rel="self"/>
   <link href="http://satoshi-m8a.github.io/"/>
-  <updated>2013-05-18T20:22:48+09:00</updated>
+  <updated>2013-05-18T20:39:18+09:00</updated>
   <id>http://satoshi-m8a.github.io/</id>
   <author>
     <name><![CDATA[Satoshi Matsushita]]></name>
@@ -72,7 +72,7 @@ Concurrent.unicastメソッドに対して、接続開始、完了、エラー�
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>このとき、接続開始時に実行される関数（上の例ではonStart関数）の中で、channelを保持することで、以降はそのchannelに対して<code>channel.push(msg)</code>とすることで特定のクライアントに対してだけメッセージを送ることができます。</p>
+<p>このとき、接続開始時に実行される関数（上の例ではonStart関数）の中で、channelを保持することで、以降はそのchannelに対して<code>channel.push(msg)</code>とするだけで特定のクライアントに対してメッセージを送ることができます。</p>
 
 <p>以下、websocket-chatをベースにしたサンプルコード</p>
 
