@@ -4,7 +4,7 @@
   <title><![CDATA[Auto-Saving ... Done]]></title>
   <link href="http://satoshi-m8a.github.io/atom.xml" rel="self"/>
   <link href="http://satoshi-m8a.github.io/"/>
-  <updated>2013-05-18T13:01:40+09:00</updated>
+  <updated>2013-05-18T14:32:28+09:00</updated>
   <id>http://satoshi-m8a.github.io/</id>
   <author>
     <name><![CDATA[Satoshi Matsushita]]></name>
@@ -18,7 +18,71 @@
     <link href="http://satoshi-m8a.github.io/blog/2013/05/18/scala-concurrent-unicast/"/>
     <updated>2013-05-18T12:50:00+09:00</updated>
     <id>http://satoshi-m8a.github.io/blog/2013/05/18/scala-concurrent-unicast</id>
-    <content type="html"><![CDATA[<p>Play2のサンプルコードで
+    <content type="html"><![CDATA[<p>Play2のサンプルコードの<a href="https://github.com/playframework/Play20/tree/master/samples/scala/websocket-chat," title="websocket-chat">websocket-chat</a>では<code>Concurrent.brodacast</code>を使って</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>val (chatEnumerator, chatChannel) = Concurrent.broadcast[JsValue]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>この<code>chatChannel</code>に対して</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chatChannel.push(msg)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とすることでchatRoomに接続している全てのクライアントに対してメッセージを送ることができます。</p>
+
+<p>全てのクライアントに同じメッセージを送る場合は<code>Concurrent.broadcast</code>で十分ですが、特定のクライアントに対してメッセージを送りたい場合はどうすればいいでしょうか。
+とりあえず全員にメッセージを送って、クライアントに自分宛てに送られたメッセージかどうかを判断してもらうという解決方法もありますが、画像などを送る場合負荷が大きいですし、別のクライアントには見られたくないメッセージもあるでしょう。</p>
+
+<p>この課題は<code>Concurrent.unicast</code>を使うことで解決できます。
+<code>Concurrent.unicast</code>の使い方は以下のように
+Concurrent.unicastメソッドに対して、接続開始、完了、エラー用の関数を引数にしてEnumeratorを生成します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'> <span class="k">def</span> <span class="n">onStart</span><span class="k">:</span> <span class="kt">Channel</span><span class="o">[</span><span class="kt">JsValue</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Unit</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">channel</span> <span class="k">=&gt;</span>
+</span><span class='line'>      <span class="n">chatChannel</span> <span class="k">=</span> <span class="n">channel</span>
+</span><span class='line'>      <span class="n">println</span><span class="o">(</span><span class="s">&quot;start&quot;</span><span class="o">)</span>
+</span><span class='line'>      <span class="n">self</span> <span class="o">!</span> <span class="nc">NotifyJoin</span><span class="o">(</span><span class="s">&quot;you&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">onError</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span> <span class="kt">Input</span><span class="o">[</span><span class="kt">JsValue</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Unit</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="n">input</span><span class="o">)</span> <span class="k">=&gt;</span>
+</span><span class='line'>      <span class="n">println</span><span class="o">(</span><span class="s">&quot;onError &quot;</span> <span class="o">+</span> <span class="n">message</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">onComplete</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;onComplete&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">val</span> <span class="n">chatEnumerator</span> <span class="k">=</span> <span class="nc">Concurrent</span><span class="o">.</span><span class="n">unicast</span><span class="o">[</span><span class="kt">JsValue</span><span class="o">](</span><span class="n">onStart</span><span class="o">,</span> <span class="n">onComplete</span><span class="o">,</span> <span class="n">onError</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>このとき、接続開始時に実行される関数（上の例ではonStart関数）の中で、channelを保持することで、以降はそのchannelに対して<code>channel.push(msg)</code>とすることで特定のクライアントに対してだけメッセージを送ることができます。</p>
+
+<p>以下、websocket-chatをベースにしたサンプルコード</p>
+
+<!-- more -->
+
+
+<p>websocket-chatと主に違うところはActorをクライアント毎に作っている点と<code>Concurrent.broadcast</code>の代わりに<code>Concurrent.unicast</code>を使っている点です。
+このActorとusernameのマップをどこかに保持することで、好きなタイミングで特定のクライアントに対して個別にメッセージを送ることができるようになります。</p>
+
+<p>参考:
 <a href="https://github.com/playframework/Play20/tree/master/samples/scala/websocket-chat">https://github.com/playframework/Play20/tree/master/samples/scala/websocket-chat</a></p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -315,6 +379,8 @@
 </span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">CannotConnect</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p>やった。これで、ロボットと一対一でチャットできる。＼(^o^)／</p>
 ]]></content>
   </entry>
   
