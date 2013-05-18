@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Auto-Saving ... Done]]></title>
+  <title><![CDATA[Auto-Saving Done]]></title>
   <link href="http://satoshi-m8a.github.io/atom.xml" rel="self"/>
   <link href="http://satoshi-m8a.github.io/"/>
-  <updated>2013-05-18T20:39:18+09:00</updated>
+  <updated>2013-05-18T20:40:42+09:00</updated>
   <id>http://satoshi-m8a.github.io/</id>
   <author>
     <name><![CDATA[Satoshi Matsushita]]></name>
@@ -20,14 +20,16 @@
     <id>http://satoshi-m8a.github.io/blog/2013/05/18/scala-concurrent-unicast</id>
     <content type="html"><![CDATA[<p>Play2のサンプルコードの<a href="https://github.com/playframework/Play20/tree/master/samples/scala/websocket-chat," title="websocket-chat">websocket-chat</a>では<code>Concurrent.brodacast</code>を使って</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>val (chatEnumerator, chatChannel) = Concurrent.broadcast[JsValue]</span></code></pre></td></tr></table></div></figure>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="o">(</span><span class="n">chatEnumerator</span><span class="o">,</span> <span class="n">chatChannel</span><span class="o">)</span> <span class="k">=</span> <span class="nc">Concurrent</span><span class="o">.</span><span class="n">broadcast</span><span class="o">[</span><span class="kt">JsValue</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>この<code>chatChannel</code>に対して</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>chatChannel.push(msg)</span></code></pre></td></tr></table></div></figure>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">chatChannel</span><span class="o">.</span><span class="n">push</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>とすることでchatRoomに接続している全てのクライアントに対してメッセージを送信しています。</p>
@@ -37,7 +39,7 @@
 
 <p>この課題は<code>Concurrent.unicast</code>を使うことで解決できます。
 <code>Concurrent.unicast</code>の使い方は以下のように
-Concurrent.unicastメソッドに対して、接続開始、完了、エラー用の関数を引数にしてEnumeratorを生成します。</p>
+<code>Concurrent.unicast</code>メソッドに対して、接続開始、完了、エラー用の関数を引数にしてEnumeratorを生成します。</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
