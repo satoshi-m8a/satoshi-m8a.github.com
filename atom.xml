@@ -4,7 +4,7 @@
   <title><![CDATA[Auto-Saving ... Done]]></title>
   <link href="http://satoshi-m8a.github.io/atom.xml" rel="self"/>
   <link href="http://satoshi-m8a.github.io/"/>
-  <updated>2013-05-18T14:57:09+09:00</updated>
+  <updated>2013-05-18T14:58:52+09:00</updated>
   <id>http://satoshi-m8a.github.io/</id>
   <author>
     <name><![CDATA[Satoshi Matsushita]]></name>
@@ -30,7 +30,7 @@
 </pre></td><td class='code'><pre><code class=''><span class='line'>chatChannel.push(msg)</span></code></pre></td></tr></table></div></figure>
 
 
-<p>とすることでchatRoomに接続している全てのクライアントに対してメッセージを送ることができます。</p>
+<p>とすることでchatRoomに接続している全てのクライアントに対してメッセージを送信しています。</p>
 
 <p>全てのクライアントに同じメッセージを送る場合は<code>Concurrent.broadcast</code>で十分ですが、特定のクライアントに対してメッセージを送りたい場合はどうすればいいでしょうか。
 とりあえず全員にメッセージを送って、クライアントに自分宛てに送られたメッセージかどうかを判断してもらうという解決方法もありますが、画像などを送る場合負荷が大きいですし、別のクライアントには見られたくないメッセージもあるでしょう。</p>
