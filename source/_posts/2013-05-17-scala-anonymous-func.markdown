@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "Scalaで無名関数を定義して即実行"
+title: "Scalaで無名関数を生成して即実行"
 date: 2013-05-17 22:37
 comments: true
 categories: 
 ---
 
-JavaScriptでこんなことしますよね。
+例えば、JavaScriptでこんな感じのことしますよね。
 ``` javascript
 var b = 1;
 (function(a){
@@ -24,3 +24,5 @@ var b = 1
 	b += 1
 })(10)
 ```
+
+いつ使うのか。
