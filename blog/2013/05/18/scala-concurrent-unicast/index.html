@@ -1,24 +1,129 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Auto-Saving ... Done]]></title>
-  <link href="http://satoshi-m8a.github.io/atom.xml" rel="self"/>
-  <link href="http://satoshi-m8a.github.io/"/>
-  <updated>2013-05-18T13:01:40+09:00</updated>
-  <id>http://satoshi-m8a.github.io/</id>
-  <author>
-    <name><![CDATA[Satoshi Matsushita]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Play Framework 2.1のWebSocketで一対一通信 - Auto-Saving ... Done</title>
+  <meta name="author" content="Satoshi Matsushita">
 
   
-  <entry>
-    <title type="html"><![CDATA[Play Framework 2.1のWebSocketで一対一通信]]></title>
-    <link href="http://satoshi-m8a.github.io/blog/2013/05/18/scala-concurrent-unicast/"/>
-    <updated>2013-05-18T12:50:00+09:00</updated>
-    <id>http://satoshi-m8a.github.io/blog/2013/05/18/scala-concurrent-unicast</id>
-    <content type="html"><![CDATA[<p>Play2のサンプルコードで
+  <meta name="description" content="Play2のサンプルコードで
+https://github.com/playframework/Play20/tree/master/samples/scala/websocket-chat 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://satoshi-m8a.github.io/blog/2013/05/18/scala-concurrent-unicast/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Auto-Saving ... Done" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-41015766-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Auto-Saving ... Done</a></h1>
+  
+    <h2>ScalaとかJavaScriptとか、たまにActionScript</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:satoshi-m8a.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Play Framework 2.1のWebSocketで一対一通信</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-18T12:50:00+09:00" pubdate data-updated="true">May 18<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Play2のサンプルコードで
 <a href="https://github.com/playframework/Play20/tree/master/samples/scala/websocket-chat">https://github.com/playframework/Play20/tree/master/samples/scala/websocket-chat</a></p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -315,86 +420,116 @@
 </span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">CannotConnect</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
 </span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[Scalaで無名関数を生成して即実行]]></title>
-    <link href="http://satoshi-m8a.github.io/blog/2013/05/17/scala-anonymous-func/"/>
-    <updated>2013-05-17T22:37:00+09:00</updated>
-    <id>http://satoshi-m8a.github.io/blog/2013/05/17/scala-anonymous-func</id>
-    <content type="html"><![CDATA[<p>例えば、JavaScriptでこんな感じのことしますよね。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-</span><span class='line'><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">){</span>
-</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">);</span>
-</span><span class='line'>  <span class="nx">b</span><span class="o">++</span><span class="p">;</span>
-</span><span class='line'><span class="p">})(</span><span class="mi">10</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
+<span class="byline author vcard">Posted by <span class="fn">Satoshi Matsushita</span></span>
+
+      
 
 
-<p>これと同じようなことをScalaでしたければ
-以下のようにすればできます。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">var</span> <span class="n">b</span> <span class="k">=</span> <span class="mi">1</span>
-</span><span class='line'><span class="o">((</span><span class="n">a</span><span class="k">:</span><span class="kt">Int</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">println</span><span class="o">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">)</span>
-</span><span class='line'>  <span class="n">b</span> <span class="o">+=</span> <span class="mi">1</span>
-</span><span class='line'><span class="o">})(</span><span class="mi">10</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<p>いつ使うのか。</p>
-]]></content>
-  </entry>
+
+
+
+
   
-  <entry>
-    <title type="html"><![CDATA[Octopress備忘録]]></title>
-    <link href="http://satoshi-m8a.github.io/blog/2013/05/17/octopress/"/>
-    <updated>2013-05-17T22:01:00+09:00</updated>
-    <id>http://satoshi-m8a.github.io/blog/2013/05/17/octopress</id>
-    <content type="html"><![CDATA[<p>こんばんは、github pages + Octopress + bitbucketでブログ始めました。
-天邪鬼なので、皆が使っているはてなブログは使いたくないのです。</p>
-
-<p>このブログは長続きする予定なので、後々自分が使いやすいよう、Octopressの使い方を備忘録としてまとめます。</p>
-
-<h4>Markdown記法チートシート</h4>
-
-<p><a href="https://github.com/NeQuissimus/MarkdownByExample/wiki/MarkdownSyntax">https://github.com/NeQuissimus/MarkdownByExample/wiki/MarkdownSyntax</a></p>
-
-<h4>新規投稿</h4>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake new_post['post title']</span></code></pre></td></tr></table></div></figure>
 
 
-<h4>デプロイ</h4>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake deploy</span></code></pre></td></tr></table></div></figure>
+<time datetime="2013-05-18T12:50:00+09:00" pubdate data-updated="true">May 18<span>th</span>, 2013</time>
+      
 
 
-
-]]></content>
-  </entry>
+    </p>
+    
+      <div class="sharing">
   
-  <entry>
-    <title type="html"><![CDATA[Test]]></title>
-    <link href="http://satoshi-m8a.github.io/blog/2013/05/17/test/"/>
-    <updated>2013-05-17T21:09:00+09:00</updated>
-    <id>http://satoshi-m8a.github.io/blog/2013/05/17/test</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satoshi-m8a.github.io/blog/2013/05/18/scala-concurrent-unicast/" data-via="satoshi_m8a" data-counturl="http://satoshi-m8a.github.io/blog/2013/05/18/scala-concurrent-unicast/" >Tweet</a>
   
-</feed>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/05/17/scala-anonymous-func/" title="Previous Post: Scalaで無名関数を生成して即実行">&laquo; Scalaで無名関数を生成して即実行</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/18/scala-concurrent-unicast/">Play Framework 2.1のWebSocketで一対一通信</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/17/scala-anonymous-func/">Scalaで無名関数を生成して即実行</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/17/octopress/">Octopress備忘録</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/17/test/">Test</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Satoshi Matsushita -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>. Background image by <a href="http://www.flickr.com/photos/89433098@N04/">Florian Kraft Fotografie</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

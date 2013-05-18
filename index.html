@@ -9,20 +9,28 @@
   <meta name="author" content="Satoshi Matsushita">
 
   
-  <meta name="description" content="例えば、JavaScriptでこんな感じのことしますよね。 1
+  <meta name="description" content="Play2のサンプルコードで
+https://github.com/playframework/Play20/tree/master/samples/scala/websocket-chat 1
 2
 3
 4
 5
-var b = 1;
-(function(a){ console.log(a + b); b++;
-})(10); これと同じようなことをScalaでしたければ
-以下のようにすればできます。 1
-2
-3
-4
-5
-var &hellip;">
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,6 +97,338 @@ var &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/18/scala-concurrent-unicast/">Play Framework 2.1のWebSocketで一対一通信</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-18T12:50:00+09:00" pubdate data-updated="true">May 18<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Play2のサンプルコードで
+<a href="https://github.com/playframework/Play20/tree/master/samples/scala/websocket-chat">https://github.com/playframework/Play20/tree/master/samples/scala/websocket-chat</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">package</span> <span class="nn">models</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">import</span> <span class="nn">akka.actor._</span>
+</span><span class='line'><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">import</span> <span class="nn">play.api._</span>
+</span><span class='line'><span class="k">import</span> <span class="nn">play.api.libs.json._</span>
+</span><span class='line'><span class="k">import</span> <span class="nn">play.api.libs.iteratee._</span>
+</span><span class='line'><span class="k">import</span> <span class="nn">play.api.libs.concurrent._</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">import</span> <span class="nn">akka.util.Timeout</span>
+</span><span class='line'><span class="k">import</span> <span class="nn">akka.pattern.ask</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">import</span> <span class="nn">play.api.Play.current</span>
+</span><span class='line'><span class="k">import</span> <span class="nn">play.api.libs.concurrent.Execution.Implicits._</span>
+</span><span class='line'><span class="k">import</span> <span class="nn">play.api.libs.iteratee.Concurrent.Channel</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">object</span> <span class="nc">Robot</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">chatRoom</span><span class="k">:</span> <span class="kt">ActorRef</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Create an Iteratee that logs all messages to the console.</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">loggerIteratee</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">foreach</span><span class="o">[</span><span class="kt">JsValue</span><span class="o">](</span><span class="n">event</span> <span class="k">=&gt;</span> <span class="nc">Logger</span><span class="o">(</span><span class="s">&quot;robot&quot;</span><span class="o">).</span><span class="n">info</span><span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="n">toString</span><span class="o">))</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">implicit</span> <span class="k">val</span> <span class="n">timeout</span> <span class="k">=</span> <span class="nc">Timeout</span><span class="o">(</span><span class="mi">1</span> <span class="n">second</span><span class="o">)</span>
+</span><span class='line'>    <span class="c1">// Make the robot join the room</span>
+</span><span class='line'>    <span class="n">chatRoom</span> <span class="o">?</span> <span class="o">(</span><span class="nc">Join</span><span class="o">(</span><span class="s">&quot;Robot&quot;</span><span class="o">))</span> <span class="n">map</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">case</span> <span class="nc">Connected</span><span class="o">(</span><span class="n">robotChannel</span><span class="o">)</span> <span class="k">=&gt;</span>
+</span><span class='line'>        <span class="c1">// Apply this Enumerator on the logger.</span>
+</span><span class='line'>        <span class="n">robotChannel</span> <span class="o">|&gt;&gt;</span> <span class="n">loggerIteratee</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Make the robot talk every 30 seconds</span>
+</span><span class='line'>    <span class="nc">Akka</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">scheduler</span><span class="o">.</span><span class="n">schedule</span><span class="o">(</span>
+</span><span class='line'>      <span class="mi">30</span> <span class="n">seconds</span><span class="o">,</span>
+</span><span class='line'>      <span class="mi">30</span> <span class="n">seconds</span><span class="o">,</span>
+</span><span class='line'>      <span class="n">chatRoom</span><span class="o">,</span>
+</span><span class='line'>      <span class="nc">Talk</span><span class="o">(</span><span class="s">&quot;Robot&quot;</span><span class="o">,</span> <span class="s">&quot;I&#39;m still alive&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">object</span> <span class="nc">ChatRoom</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">implicit</span> <span class="k">val</span> <span class="n">timeout</span> <span class="k">=</span> <span class="nc">Timeout</span><span class="o">(</span><span class="mi">1</span> <span class="n">second</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">join</span><span class="o">(</span><span class="n">username</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">scala.concurrent.Future</span><span class="o">[(</span><span class="kt">Iteratee</span><span class="o">[</span><span class="kt">JsValue</span>, <span class="k">_</span><span class="o">]</span>, <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">JsValue</span><span class="o">])]</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">roomActor</span> <span class="k">=</span> <span class="nc">Akka</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">actorOf</span><span class="o">(</span><span class="nc">Props</span><span class="o">[</span><span class="kt">ChatRoom</span><span class="o">])</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nc">Robot</span><span class="o">(</span><span class="n">roomActor</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">(</span><span class="n">roomActor</span> <span class="o">?</span> <span class="nc">Join</span><span class="o">(</span><span class="n">username</span><span class="o">)).</span><span class="n">map</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">case</span> <span class="nc">Connected</span><span class="o">(</span><span class="n">enumerator</span><span class="o">)</span> <span class="k">=&gt;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Create an Iteratee to consume the feed</span>
+</span><span class='line'>        <span class="k">val</span> <span class="n">iteratee</span> <span class="k">=</span> <span class="nc">Iteratee</span><span class="o">.</span><span class="n">foreach</span><span class="o">[</span><span class="kt">JsValue</span><span class="o">]</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">event</span> <span class="k">=&gt;</span>
+</span><span class='line'>            <span class="n">roomActor</span> <span class="o">!</span> <span class="nc">Talk</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="o">(</span><span class="n">event</span> <span class="o">\</span> <span class="s">&quot;text&quot;</span><span class="o">).</span><span class="n">as</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span>
+</span><span class='line'>        <span class="o">}.</span><span class="n">mapDone</span> <span class="o">{</span>
+</span><span class='line'>          <span class="k">_</span> <span class="k">=&gt;</span>
+</span><span class='line'>            <span class="n">roomActor</span> <span class="o">!</span> <span class="nc">Quit</span><span class="o">(</span><span class="n">username</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="o">(</span><span class="n">iteratee</span><span class="o">,</span> <span class="n">enumerator</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">case</span> <span class="nc">CannotConnect</span><span class="o">(</span><span class="n">error</span><span class="o">)</span> <span class="k">=&gt;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Connection error</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// A finished Iteratee sending EOF</span>
+</span><span class='line'>        <span class="k">val</span> <span class="n">iteratee</span> <span class="k">=</span> <span class="nc">Done</span><span class="o">[</span><span class="kt">JsValue</span>, <span class="kt">Unit</span><span class="o">]((),</span> <span class="nc">Input</span><span class="o">.</span><span class="nc">EOF</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Send an error and close the socket</span>
+</span><span class='line'>        <span class="k">val</span> <span class="n">enumerator</span> <span class="k">=</span> <span class="nc">Enumerator</span><span class="o">[</span><span class="kt">JsValue</span><span class="o">](</span><span class="nc">JsObject</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="s">&quot;error&quot;</span> <span class="o">-&gt;</span> <span class="nc">JsString</span><span class="o">(</span><span class="n">error</span><span class="o">)))).</span><span class="n">andThen</span><span class="o">(</span><span class="nc">Enumerator</span><span class="o">.</span><span class="n">enumInput</span><span class="o">(</span><span class="nc">Input</span><span class="o">.</span><span class="nc">EOF</span><span class="o">))</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="o">(</span><span class="n">iteratee</span><span class="o">,</span> <span class="n">enumerator</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">ChatRoom</span> <span class="k">extends</span> <span class="nc">Actor</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">var</span> <span class="n">chatChannel</span><span class="k">:</span> <span class="kt">Channel</span><span class="o">[</span><span class="kt">JsValue</span><span class="o">]</span> <span class="k">=</span> <span class="kc">null</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">onStart</span><span class="k">:</span> <span class="kt">Channel</span><span class="o">[</span><span class="kt">JsValue</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Unit</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">channel</span> <span class="k">=&gt;</span>
+</span><span class='line'>      <span class="n">chatChannel</span> <span class="k">=</span> <span class="n">channel</span>
+</span><span class='line'>      <span class="n">println</span><span class="o">(</span><span class="s">&quot;start&quot;</span><span class="o">)</span>
+</span><span class='line'>      <span class="n">self</span> <span class="o">!</span> <span class="nc">NotifyJoin</span><span class="o">(</span><span class="s">&quot;you&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">onError</span><span class="k">:</span> <span class="o">(</span><span class="kt">String</span><span class="o">,</span> <span class="kt">Input</span><span class="o">[</span><span class="kt">JsValue</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Unit</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="n">input</span><span class="o">)</span> <span class="k">=&gt;</span>
+</span><span class='line'>      <span class="n">println</span><span class="o">(</span><span class="s">&quot;onError &quot;</span> <span class="o">+</span> <span class="n">message</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">onComplete</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;onComplete&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">val</span> <span class="n">chatEnumerator</span> <span class="k">=</span> <span class="nc">Concurrent</span><span class="o">.</span><span class="n">unicast</span><span class="o">[</span><span class="kt">JsValue</span><span class="o">](</span><span class="n">onStart</span><span class="o">,</span> <span class="n">onComplete</span><span class="o">,</span> <span class="n">onError</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">receive</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">case</span> <span class="nc">Join</span><span class="o">(</span><span class="n">username</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">sender</span> <span class="o">!</span> <span class="nc">Connected</span><span class="o">(</span><span class="n">chatEnumerator</span><span class="o">)</span>
+</span><span class='line'>      <span class="c1">//self ! NotifyJoin(username)</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">case</span> <span class="nc">NotifyJoin</span><span class="o">(</span><span class="n">username</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">notifyAll</span><span class="o">(</span><span class="s">&quot;join&quot;</span><span class="o">,</span> <span class="n">username</span><span class="o">,</span> <span class="s">&quot;has entered the room&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">case</span> <span class="nc">Talk</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">text</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">notifyAll</span><span class="o">(</span><span class="s">&quot;talk&quot;</span><span class="o">,</span> <span class="n">username</span><span class="o">,</span> <span class="n">text</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">case</span> <span class="nc">Quit</span><span class="o">(</span><span class="n">username</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">notifyAll</span><span class="o">(</span><span class="s">&quot;quit&quot;</span><span class="o">,</span> <span class="n">username</span><span class="o">,</span> <span class="s">&quot;has left the room&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">notifyAll</span><span class="o">(</span><span class="n">kind</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">user</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">text</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">msg</span> <span class="k">=</span> <span class="nc">JsObject</span><span class="o">(</span>
+</span><span class='line'>      <span class="nc">Seq</span><span class="o">(</span>
+</span><span class='line'>        <span class="s">&quot;kind&quot;</span> <span class="o">-&gt;</span> <span class="nc">JsString</span><span class="o">(</span><span class="n">kind</span><span class="o">),</span>
+</span><span class='line'>        <span class="s">&quot;user&quot;</span> <span class="o">-&gt;</span> <span class="nc">JsString</span><span class="o">(</span><span class="n">user</span><span class="o">),</span>
+</span><span class='line'>        <span class="s">&quot;message&quot;</span> <span class="o">-&gt;</span> <span class="nc">JsString</span><span class="o">(</span><span class="n">text</span><span class="o">)</span>
+</span><span class='line'>      <span class="o">)</span>
+</span><span class='line'>    <span class="o">)</span>
+</span><span class='line'>    <span class="n">chatChannel</span><span class="o">.</span><span class="n">push</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Join</span><span class="o">(</span><span class="n">username</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Quit</span><span class="o">(</span><span class="n">username</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Talk</span><span class="o">(</span><span class="n">username</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">text</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">NotifyJoin</span><span class="o">(</span><span class="n">username</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Connected</span><span class="o">(</span><span class="n">enumerator</span><span class="k">:</span> <span class="kt">Enumerator</span><span class="o">[</span><span class="kt">JsValue</span><span class="o">])</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">CannotConnect</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -261,6 +601,10 @@ var &hellip;">
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/18/scala-concurrent-unicast/">Play Framework 2.1のWebSocketで一対一通信</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/05/17/scala-anonymous-func/">Scalaで無名関数を生成して即実行</a>
