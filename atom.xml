@@ -4,7 +4,7 @@
   <title><![CDATA[Auto-Saving ... Done]]></title>
   <link href="http://satoshi-m8a.github.io/atom.xml" rel="self"/>
   <link href="http://satoshi-m8a.github.io/"/>
-  <updated>2013-05-18T14:32:28+09:00</updated>
+  <updated>2013-05-18T14:38:48+09:00</updated>
   <id>http://satoshi-m8a.github.io/</id>
   <author>
     <name><![CDATA[Satoshi Matsushita]]></name>
@@ -79,8 +79,8 @@ Concurrent.unicastメソッドに対して、接続開始、完了、エラー�
 <!-- more -->
 
 
-<p>websocket-chatと主に違うところはActorをクライアント毎に作っている点と<code>Concurrent.broadcast</code>の代わりに<code>Concurrent.unicast</code>を使っている点です。
-このActorとusernameのマップをどこかに保持することで、好きなタイミングで特定のクライアントに対して個別にメッセージを送ることができるようになります。</p>
+<p>websocket-chatと主に異なる点はActorをクライアント毎に作っている点と<code>Concurrent.broadcast</code>の代わりに<code>Concurrent.unicast</code>を使っている点です。
+このActorとusernameのマップをどこかに保持することで、サーバー側は好きなタイミングで特定のクライアントに対して個別にメッセージを送ることができるようになります。</p>
 
 <p>参考:
 <a href="https://github.com/playframework/Play20/tree/master/samples/scala/websocket-chat">https://github.com/playframework/Play20/tree/master/samples/scala/websocket-chat</a></p>
