@@ -4,7 +4,7 @@
   <title><![CDATA[Auto-Saving ... Done]]></title>
   <link href="http://satoshi-m8a.github.io/atom.xml" rel="self"/>
   <link href="http://satoshi-m8a.github.io/"/>
-  <updated>2013-05-18T14:38:48+09:00</updated>
+  <updated>2013-05-18T14:57:09+09:00</updated>
   <id>http://satoshi-m8a.github.io/</id>
   <author>
     <name><![CDATA[Satoshi Matsushita]]></name>
@@ -380,7 +380,11 @@ Concurrent.unicastメソッドに対して、接続開始、完了、エラー�
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>やった。これで、ロボットと一対一でチャットできる。＼(^o^)／</p>
+<p><code>Enumerator.imperative</code>を使った方法もありますが今はdeprecatedなので。<br/>
+参考：<br/>
+・<a href="https://groups.google.com/forum/?fromgroups#!topic/play-framework/iKPFqusaosM">https://groups.google.com/forum/?fromgroups#!topic/play-framework/iKPFqusaosM</a>
+・<a href="http://qiita.com/items/e1a7461455be187d0565">http://qiita.com/items/e1a7461455be187d0565</a><br/>
+やった。これで、ロボットと一対一でチャットできる。＼(^o^)／</p>
 ]]></content>
   </entry>
   
