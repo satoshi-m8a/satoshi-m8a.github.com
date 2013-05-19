@@ -4,7 +4,7 @@
   <title><![CDATA[Auto-Saving ... Done]]></title>
   <link href="http://satoshi-m8a.github.io/atom.xml" rel="self"/>
   <link href="http://satoshi-m8a.github.io/"/>
-  <updated>2013-05-18T20:41:27+09:00</updated>
+  <updated>2013-05-19T16:15:27+09:00</updated>
   <id>http://satoshi-m8a.github.io/</id>
   <author>
     <name><![CDATA[Satoshi Matsushita]]></name>
@@ -18,7 +18,7 @@
     <link href="http://satoshi-m8a.github.io/blog/2013/05/18/scala-concurrent-unicast/"/>
     <updated>2013-05-18T12:50:00+09:00</updated>
     <id>http://satoshi-m8a.github.io/blog/2013/05/18/scala-concurrent-unicast</id>
-    <content type="html"><![CDATA[<p>Play2のサンプルコードの<a href="https://github.com/playframework/Play20/tree/master/samples/scala/websocket-chat," title="websocket-chat">websocket-chat</a>では<code>Concurrent.brodacast</code>を使って</p>
+    <content type="html"><![CDATA[<p>Play Framework2のScalaサンプルコードの<a href="https://github.com/playframework/Play20/tree/master/samples/scala/websocket-chat," title="websocket-chat">websocket-chat</a>では<code>Concurrent.brodacast</code>を使って</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="o">(</span><span class="n">chatEnumerator</span><span class="o">,</span> <span class="n">chatChannel</span><span class="o">)</span> <span class="k">=</span> <span class="nc">Concurrent</span><span class="o">.</span><span class="n">broadcast</span><span class="o">[</span><span class="kt">JsValue</span><span class="o">]</span>
@@ -76,7 +76,7 @@
 
 <p>このとき、接続開始時に実行される関数（上の例ではonStart関数）の中で、channelを保持することで、以降はそのchannelに対して<code>channel.push(msg)</code>とするだけで特定のクライアントに対してメッセージを送ることができます。</p>
 
-<p>以下、websocket-chatをベースにしたサンプルコード</p>
+<p>以下、websocket-chatをベースにしたScalaコード</p>
 
 <!-- more -->
 
@@ -233,6 +233,8 @@
 <span class='line-number'>144</span>
 <span class='line-number'>145</span>
 <span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
 </pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">package</span> <span class="nn">models</span>
 </span><span class='line'>
 </span><span class='line'><span class="k">import</span> <span class="nn">akka.actor._</span>
@@ -317,11 +319,11 @@
 </span><span class='line'><span class="o">}</span>
 </span><span class='line'>
 </span><span class='line'><span class="k">class</span> <span class="nc">ChatRoom</span> <span class="k">extends</span> <span class="nc">Actor</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">var</span> <span class="n">chatChannel</span><span class="k">:</span> <span class="kt">Channel</span><span class="o">[</span><span class="kt">JsValue</span><span class="o">]</span> <span class="k">=</span> <span class="kc">null</span>
+</span><span class='line'>  <span class="k">var</span> <span class="n">chatChannel</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Channel</span><span class="o">[</span><span class="kt">JsValue</span><span class="o">]]</span> <span class="k">=</span> <span class="nc">None</span>
 </span><span class='line'>
 </span><span class='line'>  <span class="k">def</span> <span class="n">onStart</span><span class="k">:</span> <span class="kt">Channel</span><span class="o">[</span><span class="kt">JsValue</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Unit</span> <span class="k">=</span> <span class="o">{</span>
 </span><span class='line'>    <span class="n">channel</span> <span class="k">=&gt;</span>
-</span><span class='line'>      <span class="n">chatChannel</span> <span class="k">=</span> <span class="n">channel</span>
+</span><span class='line'>      <span class="n">chatChannel</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="n">channel</span><span class="o">)</span>
 </span><span class='line'>      <span class="n">println</span><span class="o">(</span><span class="s">&quot;start&quot;</span><span class="o">)</span>
 </span><span class='line'>      <span class="n">self</span> <span class="o">!</span> <span class="nc">NotifyJoin</span><span class="o">(</span><span class="s">&quot;you&quot;</span><span class="o">)</span>
 </span><span class='line'>  <span class="o">}</span>
@@ -339,7 +341,6 @@
 </span><span class='line'>
 </span><span class='line'>    <span class="k">case</span> <span class="nc">Join</span><span class="o">(</span><span class="n">username</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">{</span>
 </span><span class='line'>      <span class="n">sender</span> <span class="o">!</span> <span class="nc">Connected</span><span class="o">(</span><span class="n">chatEnumerator</span><span class="o">)</span>
-</span><span class='line'>      <span class="c1">//self ! NotifyJoin(username)</span>
 </span><span class='line'>    <span class="o">}</span>
 </span><span class='line'>
 </span><span class='line'>    <span class="k">case</span> <span class="nc">NotifyJoin</span><span class="o">(</span><span class="n">username</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">{</span>
@@ -364,7 +365,10 @@
 </span><span class='line'>        <span class="s">&quot;message&quot;</span> <span class="o">-&gt;</span> <span class="nc">JsString</span><span class="o">(</span><span class="n">text</span><span class="o">)</span>
 </span><span class='line'>      <span class="o">)</span>
 </span><span class='line'>    <span class="o">)</span>
-</span><span class='line'>    <span class="n">chatChannel</span><span class="o">.</span><span class="n">push</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span>
+</span><span class='line'>    <span class="n">chatChannel</span> <span class="k">match</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">channel</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">channel</span><span class="o">.</span><span class="n">push</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span>
+</span><span class='line'>      <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;nothing&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">}</span>
 </span><span class='line'>  <span class="o">}</span>
 </span><span class='line'><span class="o">}</span>
 </span><span class='line'>

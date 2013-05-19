@@ -9,8 +9,8 @@
   <meta name="author" content="Satoshi Matsushita">
 
   
-  <meta name="description" content="Play2のサンプルコードのwebsocket-chatではConcurrent.brodacastを使って 1
-val (chatEnumerator, chatChannel) = Concurrent.broadcast[JsValue] このchatChannelに対して 1 &hellip;">
+  <meta name="description" content="Play Framework2のScalaサンプルコードのwebsocket-chatではConcurrent.brodacastを使って 1
+val (chatEnumerator, chatChannel) = Concurrent.broadcast[JsValue] &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -105,7 +105,7 @@ val (chatEnumerator, chatChannel) = Concurrent.broadcast[JsValue] このchatChan
   </header>
 
 
-  <div class="entry-content"><p>Play2のサンプルコードの<a href="https://github.com/playframework/Play20/tree/master/samples/scala/websocket-chat," title="websocket-chat">websocket-chat</a>では<code>Concurrent.brodacast</code>を使って</p>
+  <div class="entry-content"><p>Play Framework2のScalaサンプルコードの<a href="https://github.com/playframework/Play20/tree/master/samples/scala/websocket-chat," title="websocket-chat">websocket-chat</a>では<code>Concurrent.brodacast</code>を使って</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="o">(</span><span class="n">chatEnumerator</span><span class="o">,</span> <span class="n">chatChannel</span><span class="o">)</span> <span class="k">=</span> <span class="nc">Concurrent</span><span class="o">.</span><span class="n">broadcast</span><span class="o">[</span><span class="kt">JsValue</span><span class="o">]</span>
@@ -163,7 +163,7 @@ val (chatEnumerator, chatChannel) = Concurrent.broadcast[JsValue] このchatChan
 
 <p>このとき、接続開始時に実行される関数（上の例ではonStart関数）の中で、channelを保持することで、以降はそのchannelに対して<code>channel.push(msg)</code>とするだけで特定のクライアントに対してメッセージを送ることができます。</p>
 
-<p>以下、websocket-chatをベースにしたサンプルコード</p>
+<p>以下、websocket-chatをベースにしたScalaコード</p>
 
 </div>
   
