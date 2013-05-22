@@ -4,7 +4,7 @@
   <title><![CDATA[Auto-Saving ... Done]]></title>
   <link href="http://satoshi-m8a.github.io/atom.xml" rel="self"/>
   <link href="http://satoshi-m8a.github.io/"/>
-  <updated>2013-05-22T20:55:55+09:00</updated>
+  <updated>2013-05-22T20:57:34+09:00</updated>
   <id>http://satoshi-m8a.github.io/</id>
   <author>
     <name><![CDATA[Satoshi Matsushita]]></name>
@@ -18,7 +18,7 @@
     <link href="http://satoshi-m8a.github.io/blog/2013/05/22/google-univarsal-analytics-multiple-track/"/>
     <updated>2013-05-22T20:28:00+09:00</updated>
     <id>http://satoshi-m8a.github.io/blog/2013/05/22/google-univarsal-analytics-multiple-track</id>
-    <content type="html"><![CDATA[<p>Google Univarsal Analyticsで複数のトラッキングコードを設定する方法
+    <content type="html"><![CDATA[<p>Google Univarsal Analyticsで複数のトラッキングコードを設定する方法<br/>
 ga.jsではなく、analytics.jsの方です。</p>
 
 <p>参考:
