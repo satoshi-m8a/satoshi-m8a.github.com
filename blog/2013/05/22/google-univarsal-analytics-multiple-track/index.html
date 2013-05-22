@@ -9,8 +9,9 @@
   <meta name="author" content="Satoshi Matsushita">
 
   
-  <meta name="description" content="Google Univarsal Analyticsで複数のトラッキングコードを設定する方法 参考:
-https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced#multipletrackers &hellip;">
+  <meta name="description" content="Google Univarsal Analyticsで複数のトラッキングコードを設定する方法
+ga.jsではなく、analytics.jsの方です。 参考:
+https://developers.google.com/analytics/devguides/collection/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -101,7 +102,8 @@ https://developers.google.com/analytics/devguides/collection/analyticsjs/advance
   </header>
 
 
-<div class="entry-content"><p>Google Univarsal Analyticsで複数のトラッキングコードを設定する方法</p>
+<div class="entry-content"><p>Google Univarsal Analyticsで複数のトラッキングコードを設定する方法
+ga.jsではなく、analytics.jsの方です。</p>
 
 <p>参考:
 <a href="https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced#multipletrackers">https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced#multipletrackers</a></p>
@@ -132,6 +134,10 @@ https://developers.google.com/analytics/devguides/collection/analyticsjs/advance
 </span><span class='line'><span class="nt">&lt;/script&gt;</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p>コードの10行目あたりで、&#8217;UA-XXXX-XXX2&#8217;と別のトラッキングコードを指定して
+新しい &lsquo;secondTracker&#8217;という名前のトラッカーを作成し、
+11行目あたりで、secondTracker.sendに対して、&#8217;pageview&#8217;（ページ見ましたよ）という情報を渡しています。</p>
 </div>
 
 
